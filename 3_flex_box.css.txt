@@ -1,0 +1,18 @@
+/* Crescer para preencher o espaço 
+    disponível, proporcionalmente a 
+    outros itens flexíveis.
+	e é flexível até um certo ponto,
+    de acordo com a quantidade
+*/
+.flex-item-1 {
+    flex: 1;
+}
+
+/* Este item tem o dobro da proporção
+  de espaço comparado aos demais.
+  Ou seja, ele ocupará duas partes 
+  de espaço para cada parte ocupada 
+  por um item com `flex: 1`. */
+.flex-item-2 {
+    flex: 2;
+}
