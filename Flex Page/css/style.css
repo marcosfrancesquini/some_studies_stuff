@@ -1,0 +1,67 @@
+body {
+    margin: 0;
+    background-color: darkgray;
+    color: white;
+    display: flex;
+    border: solid 5px black;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;  
+    padding: 20px;   
+}
+
+header {
+    background-color: darkblue;
+    color: white;
+    width: 100%;
+    text-align: center;
+    padding: 20px 0;
+}
+
+/* header h1 {
+    margin: 0;
+} */
+
+section {
+    display: flex;
+    width: 90%;
+    max-width: 960px;
+    margin: 20px 0;
+    gap: 20px; /*consegui espaco entre eles */
+    flex-wrap: wrap;
+}
+
+section > div {
+    background-color: darkblue;
+    color: white;
+    padding: 20px;
+    text-align: center;
+}
+
+.menu {
+    flex: 1;
+}
+
+.texto-meio {
+    flex: 2;
+}
+
+.aside {
+    flex: 1;
+}
+
+footer {
+    background-color: darkblue;
+    color: white;
+    width: 100%;
+    text-align: center;
+    padding: 10px 0;
+    bottom: 0;
+}
+
+@media (max-width: 768px) {
+    section {
+        flex-direction: column;
+    }
+}
