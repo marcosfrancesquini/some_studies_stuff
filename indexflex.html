@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Flexbox Playground</title>
+<style>
+    body {
+        display: flex;
+        font-family: Arial, sans-serif;
+        margin: 0;
+        height: 100vh;
+        background-color: #f0f0f0;
+    }
+    .code {
+        width: 50%;
+        padding: 20px;
+        background-color: #fff;
+        border-right: 2px solid #ccc;
+        overflow: auto;
+        display: flex;
+        flex-direction: column;
+        gap: 10px; /* Espaço entre as seções de botões */
+    }
+    .code-section {
+        margin-bottom: 15px;
+    }
+    .code-section h3 {
+        margin-top: 0;
+        margin-bottom: 10px;
+        color: #333;
+    }
+    .code-section button {
+        margin: 5px 5px 5px 0;
+        padding: 8px 12px;
+        cursor: pointer;
+        border: 1px solid #ccc;
+        background-color: #eee;
+        border-radius: 4px;
+        transition: background-color 0.2s, transform 0.1s;
+    }
+    .code-section button:hover {
+        background-color: #ddd;
+        transform: translateY(-1px);
+    }
+    .code-section button:active {
+        transform: translateY(0);
+    }
+    .demo {
+        width: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 20px;
+        background-color: #fff;
+    }
+    .container {
+        display: flex; /* Sempre flex, as propriedades internas mudam */
+        width: 600px; /* Largura para demonstrar justify-content e flex-wrap */
+        height: 600px; /* Altura fixa para demonstrar align-content */
+        border: 2px dashed #999; /* Borda visível para o contêiner flex */
+        background-color: #e0f0ff; /* Fundo claro para o contêiner */
+        transition: all 0.5s ease;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+    .box {
+        width: 100px; /* Largura inicial das caixas */
+        height: 100px; /* Altura inicial das caixas */
+        background-color: #007bff; /* Cor de fundo da caixa */
+        border: 1px solid #0056b3; /* Borda da caixa */
+        color: white;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-weight: bold;
+        font-size: 1.2em;
+        transition: all 0.5s ease;
+        flex-shrink: 0; /* Previne que as caixas encolham por padrão */
+    }
+</style>
+</head>
+<body>
+
+<div class="code">
+    <h2>Código Flexbox CSS</h2>
+    <pre id="code-output">
+display: flex;
+flex-direction: row;
+justify-content: flex-start;
+align-items: stretch;
+flex-wrap: nowrap;
+gap: 0;
+align-content: stretch;
+    </pre>
+
+    <div class="code-section">
+        <h3>flex-direction</h3>
+        <button onclick="updateFlex('flex-direction', 'row')">Row</button>
+        <button onclick="updateFlex('flex-direction', 'row-reverse')">Row Reverse</button>
+        <button onclick="updateFlex('flex-direction', 'column')">Column</button>
+        <button onclick="updateFlex('flex-direction', 'column-reverse')">Column Reverse</button>
+    </div>
+
+    <div class="code-section">
+        <h3>justify-content (Eixo Principal)</h3>
+        <button onclick="updateFlex('justify-content', 'flex-start')">Flex Start</button>
+        <button onclick="updateFlex('justify-content', 'flex-end')">Flex End</button>
+        <button onclick="updateFlex('justify-content', 'center')">Center</button>
+        <button onclick="updateFlex('justify-content', 'space-between')">Space Between</button>
+        <button onclick="updateFlex('justify-content', 'space-around')">Space Around</button>
+        <button onclick="updateFlex('justify-content', 'space-evenly')">Space Evenly</button>
+    </div>
+
+    <div class="code-section">
+        <h3>align-items (Eixo Cruzado - Item)</h3>
+        <button onclick="updateFlex('align-items', 'flex-start')">Flex Start</button>
+        <button onclick="updateFlex('align-items', 'flex-end')">Flex End</button>
+        <button onclick="updateFlex('align-items', 'center')">Center</button>
+        <button onclick="updateFlex('align-items', 'stretch')">Stretch</button>
+        <button onclick="updateFlex('align-items', 'baseline')">Baseline</button>
+    </div>
+
+    <div class="code-section">
+        <h3>flex-wrap</h3>
+        <button onclick="updateFlex('flex-wrap', 'nowrap')">No Wrap</button>
+        <button onclick="updateFlex('flex-wrap', 'wrap')">Wrap</button>
+        <button onclick="updateFlex('flex-wrap', 'wrap-reverse')">Wrap Reverse</button>
+    </div>
+
+    <div class="code-section">
+        <h3>gap</h3>
+        <button onclick="updateFlex('gap', '0')">0</button>
+        <button onclick="updateFlex('gap', '10px')">10px</button>
+        <button onclick="updateFlex('gap', '20px')">20px</button>
+        <button onclick="updateFlex('gap', '10px 20px')">10px (linha) 20px (coluna)</button>
+    </div>
+
+    <div class="code-section">
+        <h3>align-content (Eixo Cruzado - Linhas/Colunas)</h3>
+        <button onclick="updateFlex('align-content', 'flex-start')">Flex Start</button>
+        <button onclick="updateFlex('align-content', 'flex-end')">Flex End</button>
+        <button onclick="updateFlex('align-content', 'center')">Center</button>
+        <button onclick="updateFlex('align-content', 'space-between')">Space Between</button>
+        <button onclick="updateFlex('align-content', 'space-around')">Space Around</button>
+        <button onclick="updateFlex('align-content', 'stretch')">Stretch</button>
+    </div>
+</div>
+
+<div class="demo">
+    <div class="container" id="flex-container">
+        <div class="box">1</div>
+        <div class="box">2</div>
+        <div class="box">3</div>
+        <div class="box">4</div>
+        <div class="box">5</div>
+        <div class="box">6</div>
+        <div class="box">7</div>
+        <div class="box">8</div>
+        <div class="box">9</div>
+        <div class="box">10</div>
+        <div class="box">11</div>
+        <div class="box">12</div>
+    </div>
+</div>
+
+<script>
+    // Objeto para manter o estado atual das propriedades do flexbox
+    let currentFlex = {
+        'flex-direction': 'row',
+        'justify-content': 'flex-start',
+        'align-items': 'stretch',
+        'flex-wrap': 'nowrap',
+        'gap': '0',
+        'align-content': 'stretch'
+    };
+
+    function updateFlex(property, value) {
+        const container = document.getElementById('flex-container');
+
+        // Atualiza a propriedade específica no objeto de estado
+        currentFlex[property] = value;
+
+        // Aplica todos os estilos atuais do objeto de estado ao contêiner
+        for (const prop in currentFlex) {
+            container.style[prop] = currentFlex[prop];
+        }
+
+        // Atualiza o código CSS exibido
+        let codeOutput = 'display: flex;\n';
+        for (const prop in currentFlex) {
+            codeOutput += `${prop}: ${currentFlex[prop]};\n`;
+        }
+        document.getElementById('code-output').innerText = codeOutput;
+    }
+
+    // Inicializa o flexbox com os valores padrão ao carregar a página
+    document.addEventListener('DOMContentLoaded', () => {
+        // Chamada para uma das propriedades para que a função updateFlex seja executada
+        // e aplique todos os estilos iniciais corretamente.
+        updateFlex('flex-direction', currentFlex['flex-direction']); 
+    });
+</script>
+
+</body>
+</html>

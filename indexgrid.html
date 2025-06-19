@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Grid Animation</title>
+<style>
+    body {
+        display: flex;
+        font-family: Arial, sans-serif;
+        margin: 0;
+        height: 100vh;
+        background-color: #f0f0f0;
+    }
+    .code {
+        width: 50%;
+        padding: 20px;
+        background-color: #fff;
+        border-right: 2px solid #ccc;
+        overflow: auto;
+        display: flex;
+        flex-direction: column;
+        gap: 10px; /* Espaço entre as seções de botões */
+    }
+    .code-section {
+        margin-bottom: 15px;
+    }
+    .code-section h3 {
+        margin-top: 0;
+        margin-bottom: 10px;
+        color: #333;
+    }
+    .code-section button {
+        margin: 5px 5px 5px 0;
+        padding: 8px 12px;
+        cursor: pointer;
+        border: 1px solid #ccc;
+        background-color: #eee;
+        border-radius: 4px;
+        transition: background-color 0.2s, transform 0.1s;
+    }
+    .code-section button:hover {
+        background-color: #ddd;
+        transform: translateY(-1px);
+    }
+    .code-section button:active {
+        transform: translateY(0);
+    }
+    .demo {
+        width: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 20px;
+        background-color: #fff;
+    }
+    .container {
+        display: grid; /* Sempre grid, as propriedades internas mudam */
+        width: 600px; /* Largura fixa para demonstrar justify-content */
+        height: 600px; /* Altura fixa para demonstrar align-content */
+        border: 2px dashed #999; /* Borda visível para o contêiner da grid */
+        background-color: #e0ffe0; /* Fundo claro para o contêiner */
+        transition: all 0.5s ease;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+    .box {
+        background-color: #4CAF50; /* Cor de fundo da caixa */
+        border: 1px solid #388E3C; /* Borda da caixa */
+        color: white;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-weight: bold;
+        font-size: 1.2em;
+        transition: all 0.5s ease;
+        /* Tamanho base das caixas, para que justify/align-items funcione quando não são 'stretch' */
+        width: 80px; 
+        height: 80px;
+    }
+</style>
+</head>
+<body>
+
+<div class="code">
+    <h2>Código Grid CSS</h2>
+    <pre id="code-output">
+display: grid;
+grid-template-columns: repeat(3, 100px);
+grid-template-rows: repeat(3, 100px);
+gap: 10px;
+justify-items: stretch;
+align-items: stretch;
+justify-content: start;
+align-content: start;
+    </pre>
+
+    <div class="code-section">
+        <h3>grid-template-columns</h3>
+        <button onclick="updateGrid('grid-template-columns', 'repeat(3, 100px)')">3 x 100px</button>
+        <button onclick="updateGrid('grid-template-columns', 'repeat(3, 1fr)')">3 x 1fr</button>
+        <button onclick="updateGrid('grid-template-columns', '100px 1fr 200px')">100px 1fr 200px</button>
+        <button onclick="updateGrid('grid-template-columns', 'repeat(auto-fit, minmax(100px, 1fr))')">Auto-fit (min 100px)</button>
+    </div>
+
+    <div class="code-section">
+        <h3>grid-template-rows</h3>
+        <button onclick="updateGrid('grid-template-rows', 'repeat(3, 100px)')">3 x 100px</button>
+        <button onclick="updateGrid('grid-template-rows', 'repeat(3, 1fr)')">3 x 1fr</button>
+        <button onclick="updateGrid('grid-template-rows', 'repeat(2, auto) 1fr')">2 auto 1fr</button>
+    </div>
+
+    <div class="code-section">
+        <h3>gap</h3>
+        <button onclick="updateGrid('gap', '10px')">10px</button>
+        <button onclick="updateGrid('gap', '20px 10px')">20px 10px (row col)</button>
+        <button onclick="updateGrid('gap', '0')">0</button>
+    </div>
+
+    <div class="code-section">
+        <h3>justify-items (Alinha itens horizontalmente dentro da célula)</h3>
+        <button onclick="updateGrid('justify-items', 'start')">Start</button>
+        <button onclick="updateGrid('justify-items', 'end')">End</button>
+        <button onclick="updateGrid('justify-items', 'center')">Center</button>
+        <button onclick="updateGrid('justify-items', 'stretch')">Stretch</button>
+    </div>
+
+    <div class="code-section">
+        <h3>align-items (Alinha itens verticalmente dentro da célula)</h3>
+        <button onclick="updateGrid('align-items', 'start')">Start</button>
+        <button onclick="updateGrid('align-items', 'end')">End</button>
+        <button onclick="updateGrid('align-items', 'center')">Center</button>
+        <button onclick="updateGrid('align-items', 'stretch')">Stretch</button>
+    </div>
+
+    <div class="code-section">
+        <h3>justify-content (Alinha trilhas de coluna horizontalmente no contêiner)</h3>
+        <button onclick="updateGrid('justify-content', 'start')">Start</button>
+        <button onclick="updateGrid('justify-content', 'end')">End</button>
+        <button onclick="updateGrid('justify-content', 'center')">Center</button>
+        <button onclick="updateGrid('justify-content', 'space-between')">Space Between</button>
+        <button onclick="updateGrid('justify-content', 'space-around')">Space Around</button>
+        <button onclick="updateGrid('justify-content', 'space-evenly')">Space Evenly</button>
+    </div>
+
+    <div class="code-section">
+        <h3>align-content (Alinha trilhas de linha verticalmente no contêiner)</h3>
+        <button onclick="updateGrid('align-content', 'start')">Start</button>
+        <button onclick="updateGrid('align-content', 'end')">End</button>
+        <button onclick="updateGrid('align-content', 'center')">Center</button>
+        <button onclick="updateGrid('align-content', 'space-between')">Space Between</button>
+        <button onclick="updateGrid('align-content', 'space-around')">Space Around</button>
+        <button onclick="updateGrid('align-content', 'space-evenly')">Space Evenly</button>
+    </div>
+</div>
+
+<div class="demo">
+    <div class="container" id="grid-container">
+        <div class="box">1</div>
+        <div class="box">2</div>
+        <div class="box">3</div>
+        <div class="box">4</div>
+        <div class="box">5</div>
+        <div class="box">6</div>
+        <div class="box">7</div>
+        <div class="box">8</div>
+        <div class="box">9</div>
+    </div>
+</div>
+
+<script>
+    // Objeto para manter o estado atual das propriedades da grid
+    let currentGrid = {
+        'grid-template-columns': 'repeat(3, 100px)',
+        'grid-template-rows': 'repeat(3, 100px)',
+        'gap': '10px',
+        'justify-items': 'stretch',
+        'align-items': 'stretch',
+        'justify-content': 'start',
+        'align-content': 'start'
+    };
+
+    function updateGrid(property, value) {
+        const container = document.getElementById('grid-container');
+
+        // Atualiza a propriedade específica no objeto de estado
+        currentGrid[property] = value;
+
+        // Aplica todos os estilos atuais do objeto de estado ao contêiner
+        for (const prop in currentGrid) {
+            container.style[prop] = currentGrid[prop];
+        }
+
+        // Atualiza o código CSS exibido
+        let codeOutput = 'display: grid;\n';
+        for (const prop in currentGrid) {
+            codeOutput += `${prop}: ${currentGrid[prop]};\n`;
+        }
+        document.getElementById('code-output').innerText = codeOutput;
+    }
+
+    // Inicializa a grid com os valores padrão ao carregar a página
+    document.addEventListener('DOMContentLoaded', () => {
+        // Chamada para uma das propriedades para que a função updateGrid seja executada
+        // e aplique todos os estilos iniciais corretamente.
+        updateGrid('grid-template-columns', currentGrid['grid-template-columns']); 
+    });
+</script>
+
+</body>
+</html>
